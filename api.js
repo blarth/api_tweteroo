@@ -14,7 +14,7 @@ app.post('/sign-up', (req, res) => {
   const user = req.body
   dbUser.push(user)
   res.send("OK")
-  console.log(dbUser)
+  
   
 });
 
@@ -28,7 +28,8 @@ app.post('/tweets', (req, res) => {
 });
 
 app.get("/tweets" , (req, res) => {
-    res.send(dbTweet)
+    const lastTweets = dbTweet.slice(-10)
+    res.send(lastTweets)
 
 
 })
