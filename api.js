@@ -14,15 +14,24 @@ app.post('/sign-up', (req, res) => {
   const user = req.body
   dbUser.push(user)
   res.send("OK")
+  console.log(dbUser)
   
 });
 
-app.get('/tweets', (req, res) => {
+app.post('/tweets', (req, res) => {
     const tweet = req.body
-    dbTweet.push(tweet)
+    const fetchUser = dbUser.find(infoUser => tweet.username === infoUser.username)
+    dbTweet.push({...fetchUser, tweet : tweet.tweet})
+    
 
   res.send("OK");
 });
+
+app.get("/tweets" , (req, res) => {
+    res.send(dbTweet)
+
+
+})
 
 app.listen(5000, () => {
 
