@@ -17,8 +17,11 @@ app.post('/sign-up', (req, res) => {
   
 });
 
-app.get('/', (req, res) => {
-  res.send();
+app.get('/tweets', (req, res) => {
+    const tweet = req.body
+    dbTweet.push(tweet)
+
+  res.send("OK");
 });
 
 app.listen(5000, () => {
