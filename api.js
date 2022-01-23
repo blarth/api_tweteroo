@@ -60,6 +60,19 @@ app.get("/tweets" , (req, res) => {
 
 
 })
+app.get("/tweets/:username" , (req, res) => {
+
+  const tweetUser = req.params.username
+
+  console.log(tweetUser)
+  
+
+  const lastTweetsUser = dbTweet.filter(tweets => tweets.username === tweetUser)
+  console.log(lastTweetsUser)
+  res.send(lastTweetsUser)
+
+
+})
 
 app.listen(5000, () => {
 
