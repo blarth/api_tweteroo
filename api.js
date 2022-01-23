@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { body, validationResult, check } from "express-validator";
+import {  validationResult, check } from "express-validator";
 
 const app = express();
 app.use(express.json());
@@ -44,9 +44,32 @@ app.post("/tweets", check("tweet").isLength({ min: 1 }), (req, res) => {
 
 app.get("/tweets", (req, res) => {
   const page = parseInt(req.query.page);
+  let lastTweets = dbTweet.slice(-10);
 
-  const lastTweets = dbTweet.slice(-10);
-  res.send(lastTweets);
+  switch (page) {
+    case 1:
+      res.send(lastTweets.reverse());
+      break;
+    case 2:
+      lastTweets = dbTweet.slice(-20, -10);
+      res.send(lastTweets.reverse());
+      break;
+    case 3:
+      lastTweets = dbTweet.slice(-30, -20);
+
+      res.send(lastTweets.reverse());
+      break;
+    case 4:
+      lastTweets = dbTweet.slice(-40, -30);
+      res.send(lastTweets.reverse());
+      break;
+    case 5:
+      lastTweets = dbTweet.slice(-50, -40);
+      res.send(lastTweets.reverse());
+      break;
+    default:
+      res.status(400).send("Informe uma página válida!");
+  }
 });
 app.get("/tweets/:username", (req, res) => {
   const tweetUser = req.params.username;
